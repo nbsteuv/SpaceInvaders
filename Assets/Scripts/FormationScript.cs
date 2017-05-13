@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class FormationScript : MonoBehaviour {
 
-    public float speed;
+    public float speedX;
+    public float speedY;
     public float maxOffset;
 
     List<RowScript> rowScripts;
     float startX;
     float goalX;
     float startTime;
+    float startY;
+    float goalY;
 
 	void Start () {
         startX = transform.position.x;
@@ -27,7 +30,7 @@ public class FormationScript : MonoBehaviour {
 	}
 	
 	void Update () {
-        MoveGoalX();
+        MoveGoals();
         if (CheckRowsReadytoMove())
         {
             SetNewRowGoals(goalX);
@@ -54,26 +57,28 @@ public class FormationScript : MonoBehaviour {
     {
         foreach(RowScript rowScript in rowScripts)
         {
-            rowScript.SetSpeed(speed);
+            //Pass speed to rows so it can be increased over time in one place
+            rowScript.SetSpeed(speedX);
             rowScript.SetGoalPosition(newXPosition);
         }
     }
 
-    void MoveGoalX()
+    void MoveGoals()
     {
         if(goalX == maxOffset)
         {
             maxOffset = -maxOffset;
             startX = goalX;
             startTime = Time.time;
+        } else
+        {
+            float timeDifference = Time.time - startTime;
+            float distanceTraveled = speedX * timeDifference;
+
+            float totalDistance = Mathf.Abs(startX - maxOffset);
+            float fracJourney = distanceTraveled / totalDistance;
+            goalX = Mathf.Lerp(startX, maxOffset, fracJourney);
         }
-
-        float timeDifference = Time.time - startTime;
-        float distanceTraveled = speed * timeDifference;
-
-        float totalDistance = Mathf.Abs(startX - maxOffset);
-        float fracJourney = distanceTraveled / totalDistance;
-        goalX = Mathf.Lerp(startX, maxOffset, fracJourney);
     }
 
 }
