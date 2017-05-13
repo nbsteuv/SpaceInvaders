@@ -15,7 +15,7 @@ public class FormationScript : MonoBehaviour {
     float startTime;
     float startY;
     float goalY;
-    bool movingY;
+    bool movingY = false;
 
 	void Start () {
         startX = transform.position.x;
@@ -32,13 +32,25 @@ public class FormationScript : MonoBehaviour {
 	}
 	
 	void Update () {
-        MoveXGoal();
-
-        if (!movingY && CheckRowsReadytoMove())
+        if (!movingY)
         {
-            SetNewRowGoals(goalX);
-        }
+            if (goalX == maxOffset)
+            {
+                //IncrementYGoal sets movingY to true;
+                IncrementYGoal();
+            }
 
+            MoveXGoal();
+
+            if (CheckRowsReadytoMove())
+            {
+                SetNewRowGoals(goalX);
+            }
+        } else
+        {
+            //MoveToY sets movingY to false when goal is reached
+            MoveToY();
+        }
     }
 
     bool CheckRowsReadytoMove()
@@ -88,6 +100,31 @@ public class FormationScript : MonoBehaviour {
         maxOffset = -maxOffset;
         startX = goalX;
         startTime = Time.time;
+    }
+
+    void IncrementYGoal()
+    {
+        goalY -= yIncrement;
+        startTime = Time.time;
+        startY = transform.position.y;
+        movingY = true;
+    }
+
+    void MoveToY()
+    {
+        float timeDifference = Time.time - startTime;
+        float distanceTraveled = speedY * timeDifference;
+
+        float totalDistance = Mathf.Abs(startY - goalY);
+        float fracJourney = distanceTraveled / totalDistance;
+        float newYPosition = Mathf.Lerp(startY, goalY, fracJourney);
+        transform.position = new Vector3(transform.position.x, newYPosition, transform.position.z);
+
+        Debug.Log(transform.position.y + " vs " + goalY);
+        if(transform.position.y == goalY)
+        {
+            movingY = false;
+        }
     }
 
 }
