@@ -6,6 +6,7 @@ public class FormationScript : MonoBehaviour {
 
     public float speedX;
     public float speedY;
+    public float yIncrement;
     public float maxOffset;
 
     List<RowScript> rowScripts;
@@ -14,6 +15,7 @@ public class FormationScript : MonoBehaviour {
     float startTime;
     float startY;
     float goalY;
+    bool movingY;
 
 	void Start () {
         startX = transform.position.x;
@@ -30,8 +32,9 @@ public class FormationScript : MonoBehaviour {
 	}
 	
 	void Update () {
-        MoveGoals();
-        if (CheckRowsReadytoMove())
+        MoveXGoal();
+
+        if (!movingY && CheckRowsReadytoMove())
         {
             SetNewRowGoals(goalX);
         }
@@ -63,13 +66,12 @@ public class FormationScript : MonoBehaviour {
         }
     }
 
-    void MoveGoals()
+    void MoveXGoal()
     {
         if(goalX == maxOffset)
         {
-            maxOffset = -maxOffset;
-            startX = goalX;
-            startTime = Time.time;
+            SwitchDirections();
+            
         } else
         {
             float timeDifference = Time.time - startTime;
@@ -79,6 +81,13 @@ public class FormationScript : MonoBehaviour {
             float fracJourney = distanceTraveled / totalDistance;
             goalX = Mathf.Lerp(startX, maxOffset, fracJourney);
         }
+    }
+
+    void SwitchDirections()
+    {
+        maxOffset = -maxOffset;
+        startX = goalX;
+        startTime = Time.time;
     }
 
 }
