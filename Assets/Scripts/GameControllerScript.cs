@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameControllerScript : MonoBehaviour {
 
+    public bool hideMouse;
+
     LevelManagerScript levelManagerScript;
 
 	void Start () {
@@ -36,5 +38,13 @@ public class GameControllerScript : MonoBehaviour {
     {
         GameObject LevelManager = (GameObject)GameObject.Find("LevelManager");
         levelManagerScript = LevelManager.GetComponent<LevelManagerScript>();
+
+        if (hideMouse)
+        {
+            if(scene.name != "Menu" && scene.name != "Win" && scene.name != "Lose")
+            {
+                Cursor.visible = false;
+            }
+        }
     }
 }
