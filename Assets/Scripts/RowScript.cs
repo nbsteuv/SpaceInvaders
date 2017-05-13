@@ -49,6 +49,16 @@ public class RowScript : MonoBehaviour {
         goalX = newXPosition;
     }
 
+    public float GetGoalPosition()
+    {
+        return goalX;
+    }
+
+    public float GetCurrentPosition()
+    {
+        return transform.position.x;
+    }
+
     bool CheckMoveable()
     {
         //Debug.Log(goalX + " vs. " + startX);
