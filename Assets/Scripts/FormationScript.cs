@@ -61,6 +61,13 @@ public class FormationScript : MonoBehaviour {
 
     void MoveGoalX()
     {
+        if(goalX == maxOffset)
+        {
+            maxOffset = -maxOffset;
+            startX = goalX;
+            startTime = Time.time;
+        }
+
         float timeDifference = Time.time - startTime;
         float distanceTraveled = speed * timeDifference;
 
