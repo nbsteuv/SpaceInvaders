@@ -5,11 +5,13 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour {
 
     float cameraToBackgroundDistance = 10f;
+    float playerHalfWidth;
     float rightBoundary;
     float leftBoundary;
 
 	void Start () {
-        rightBoundary = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, cameraToBackgroundDistance)).x;
+        playerHalfWidth = GetComponent<SpriteRenderer>().bounds.size.x / 2;
+        rightBoundary = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, cameraToBackgroundDistance)).x - playerHalfWidth;
         leftBoundary = -rightBoundary;
     }
 	
