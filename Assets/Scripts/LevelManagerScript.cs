@@ -11,6 +11,7 @@ public class LevelManagerScript : MonoBehaviour {
         {
             LoadNextLevel();
         }
+
     }
 
     public void StartGame()
@@ -18,9 +19,14 @@ public class LevelManagerScript : MonoBehaviour {
         SceneManager.LoadScene(1);
     }
 
-    void LoadNextLevel()
+    public void LoadNextLevel()
     {
         int index = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(index + 1);
+    }
+
+    public void LoadLose()
+    {
+        SceneManager.LoadScene("Lose");
     }
 }
