@@ -10,6 +10,7 @@ public class GameControllerScript : MonoBehaviour {
     public GameObject playerPrefab;
     public bool hideMouse;
     public int lives = 3;
+    public float respawnDelay = 1;
 
     LevelManagerScript levelManagerScript;
     List<PlayerScript> playerScripts;
@@ -72,7 +73,7 @@ public class GameControllerScript : MonoBehaviour {
         lives--;
         if(lives > 0)
         {
-            RespawnPlayer();
+            Invoke("RespawnPlayer", respawnDelay);
         } else
         {
             levelManagerScript.LoadLose();
