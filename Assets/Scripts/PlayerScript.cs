@@ -14,7 +14,12 @@ public class PlayerScript : MonoBehaviour {
     float leftBoundary;
 
 	void Start () {
-        GameObject.Find("GameController").GetComponent<GameControllerScript>().RegisterPlayerScript(this);
+        GameObject gameController = GameObject.Find("GameController");
+        if(gameController != null)
+        {
+            GameControllerScript gameControllerScript = gameController.GetComponent<GameControllerScript>();
+            gameControllerScript.RegisterPlayerScript(this);
+        }
 
         playerHalfWidth = GetComponent<SpriteRenderer>().bounds.size.x / 2;
         rightBoundary = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, cameraToBackgroundDistance)).x - playerHalfWidth;

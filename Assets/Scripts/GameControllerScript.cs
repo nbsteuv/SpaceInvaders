@@ -12,6 +12,8 @@ public class GameControllerScript : MonoBehaviour {
     public int lives = 3;
     public float respawnDelay = 1;
 
+    float cameraToBackgroundDistance = 10f;
+
     LevelManagerScript levelManagerScript;
     List<PlayerScript> playerScripts;
 
@@ -90,8 +92,11 @@ public class GameControllerScript : MonoBehaviour {
             return;
         }
 
-        Vector3 respawnPosition = respawnPoint.transform.position;
- 
+        float mousePositionX = Input.mousePosition.x / Screen.width;
+        float newPositionX = Camera.main.ViewportToWorldPoint(new Vector3(mousePositionX, 0, cameraToBackgroundDistance)).x;
+
+        Vector3 respawnPosition = new Vector3(newPositionX, respawnPoint.transform.position.y, respawnPoint.transform.position.z);
+  
         Instantiate(playerPrefab, respawnPosition, Quaternion.identity);
     }
 }
