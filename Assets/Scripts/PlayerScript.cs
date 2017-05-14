@@ -34,4 +34,9 @@ public class PlayerScript : MonoBehaviour {
     {
         Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y + laserVerticalOffset, transform.position.z), Quaternion.identity);
     }
+
+    public void Die()
+    {
+        Destroy(gameObject);
+    }
 }
