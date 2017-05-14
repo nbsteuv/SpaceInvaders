@@ -7,6 +7,8 @@ using System;
 
 public class GameControllerScript : MonoBehaviour {
 
+    public static GameObject instance;
+
     public GameObject playerPrefab;
     public bool hideMouse;
     public int lives = 3;
@@ -18,12 +20,21 @@ public class GameControllerScript : MonoBehaviour {
     List<PlayerScript> playerScripts;
     List<FormationScript> formationScripts;
 
-	void Start () {
+    private void Awake()
+    {
+        if(instance != null)
+        {
+            Destroy(gameObject);
+        } else
+        {
+            instance = gameObject;
+            GameObject.DontDestroyOnLoad(gameObject);
+        }
+    }
 
+    void Start () {
         playerScripts = new List<PlayerScript>();
         formationScripts = new List<FormationScript>();
-        GameObject.DontDestroyOnLoad(gameObject);
-        
 	}
 	
 	void Update () {
