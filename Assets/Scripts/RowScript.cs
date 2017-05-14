@@ -47,6 +47,7 @@ public class RowScript : MonoBehaviour {
         //Debug.Log("Setting position: " + newXPosition);
         startX = transform.position.x;
         goalX = newXPosition;
+        movementStartTime = Time.time;
     }
 
     public float GetGoalPosition()
@@ -72,21 +73,21 @@ public class RowScript : MonoBehaviour {
 
     void Shift()
     {
-        if(moving == false)
-        {
-            moving = true;
-            movementStartTime = Time.time;
-        }
         float timeDifference = Time.time - movementStartTime;
         float distanceTraveled = timeDifference * speed;
+
+        Debug.Log("Time difference: " + distanceTraveled);
+        Debug.Log("Distance traveled: " + distanceTraveled);
 
         Vector3 startPosition = new Vector3(startX, transform.position.y, transform.position.z);
         Vector3 goalPosition = new Vector3(goalX, transform.position.y, transform.position.z);
         float totalDistance = Vector3.Distance(startPosition, goalPosition);
 
+        Debug.Log("Total distance: " + totalDistance);
+
         float fracJourney = distanceTraveled / totalDistance;
 
-        //Debug.Log(fracJourney);
+        Debug.Log("Fracjourney: " + fracJourney);
 
         transform.position = Vector3.Lerp(startPosition, goalPosition, fracJourney);
     }

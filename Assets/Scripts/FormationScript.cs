@@ -92,6 +92,7 @@ public class FormationScript : MonoBehaviour {
             float totalDistance = Mathf.Abs(startX - maxOffset);
             float fracJourney = distanceTraveled / totalDistance;
             goalX = Mathf.Lerp(startX, maxOffset, fracJourney);
+            Debug.Log("Goal passed: " + goalX);
         }
     }
 
@@ -120,7 +121,7 @@ public class FormationScript : MonoBehaviour {
         float newYPosition = Mathf.Lerp(startY, goalY, fracJourney);
         transform.position = new Vector3(transform.position.x, newYPosition, transform.position.z);
 
-        Debug.Log(transform.position.y + " vs " + goalY);
+        //Debug.Log(transform.position.y + " vs " + goalY);
         if(transform.position.y == goalY)
         {
             movingY = false;
