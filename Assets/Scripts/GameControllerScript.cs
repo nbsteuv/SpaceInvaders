@@ -54,6 +54,9 @@ public class GameControllerScript : MonoBehaviour {
             if(scene.name != "Menu" && scene.name != "Win" && scene.name != "Lose")
             {
                 Cursor.visible = false;
+            } else
+            {
+                Cursor.visible = true;
             }
         }
     }
