@@ -16,10 +16,12 @@ public class GameControllerScript : MonoBehaviour {
 
     LevelManagerScript levelManagerScript;
     List<PlayerScript> playerScripts;
+    List<FormationScript> formationScripts;
 
 	void Start () {
 
         playerScripts = new List<PlayerScript>();
+        formationScripts = new List<FormationScript>();
         GameObject.DontDestroyOnLoad(gameObject);
         
 	}
@@ -41,9 +43,15 @@ public class GameControllerScript : MonoBehaviour {
     public void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoad;
+
         foreach(PlayerScript playerScript in playerScripts)
         {
             playerScript.Death -= OnPlayerDeath;
+        }
+
+        foreach(FormationScript formationScript in formationScripts)
+        {
+            formationScript.FormationDestroyed -= OnFormationDestroyed;
         }
     }
 
@@ -68,6 +76,12 @@ public class GameControllerScript : MonoBehaviour {
     {
         playerScripts.Add(playerScript);
         playerScript.Death += OnPlayerDeath;
+    }
+
+    public void RegisterFormationScript(FormationScript formationScript)
+    {
+        formationScripts.Add(formationScript);
+        formationScript.FormationDestroyed += OnFormationDestroyed;
     }
 
     void OnPlayerDeath()
@@ -98,5 +112,10 @@ public class GameControllerScript : MonoBehaviour {
         Vector3 respawnPosition = new Vector3(newPositionX, respawnPoint.transform.position.y, respawnPoint.transform.position.z);
   
         Instantiate(playerPrefab, respawnPosition, Quaternion.identity);
+    }
+
+    void OnFormationDestroyed()
+    {
+        levelManagerScript.LoadNextLevel();
     }
 }

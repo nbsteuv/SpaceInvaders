@@ -18,6 +18,13 @@ public class FormationScript : MonoBehaviour {
     bool movingY = false;
 
 	void Start () {
+        GameObject gameController = GameObject.Find("GameController");
+        if (gameController != null)
+        {
+            GameControllerScript gameControllerScript = gameController.GetComponent<GameControllerScript>();
+            gameControllerScript.RegisterFormationScript(this);
+        }
+
         startX = transform.position.x;
         startTime = Time.time;
 
@@ -51,6 +58,8 @@ public class FormationScript : MonoBehaviour {
             //MoveToY sets movingY to false when goal is reached
             MoveToY();
         }
+
+        TestFormationDestroyed();
     }
 
     bool CheckRowsReadytoMove()
@@ -125,6 +134,41 @@ public class FormationScript : MonoBehaviour {
         if(transform.position.y == goalY)
         {
             movingY = false;
+        }
+    }
+
+    bool CheckAllEnemiesDestroyed()
+    {
+
+        foreach(Transform row in transform)
+        {
+            foreach(Transform position in row)
+            {
+                if(position.childCount != 0)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    void TestFormationDestroyed()
+    {
+        if (CheckAllEnemiesDestroyed())
+        {
+            OnFormationDestroyed();
+        }
+    }
+
+    public delegate void FormationDestoyedAction();
+    public event FormationDestoyedAction FormationDestroyed;
+    void OnFormationDestroyed()
+    {
+        if(FormationDestroyed != null)
+        {
+            FormationDestroyed();
         }
     }
 
