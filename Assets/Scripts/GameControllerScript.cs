@@ -2,15 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
+using System;
 
 public class GameControllerScript : MonoBehaviour {
 
+    public GameObject playerPrefab;
     public bool hideMouse;
+    public int lives = 3;
 
     LevelManagerScript levelManagerScript;
+    List<PlayerScript> playerScripts;
 
 	void Start () {
 
+        playerScripts = new List<PlayerScript>();
         GameObject.DontDestroyOnLoad(gameObject);
         
 	}
@@ -32,6 +38,10 @@ public class GameControllerScript : MonoBehaviour {
     public void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoad;
+        foreach(PlayerScript playerScript in playerScripts)
+        {
+            playerScript.Death -= OnPlayerDeath;
+        }
     }
 
     void OnSceneLoad(Scene scene, LoadSceneMode mode)
@@ -46,5 +56,38 @@ public class GameControllerScript : MonoBehaviour {
                 Cursor.visible = false;
             }
         }
+    }
+
+    public void RegisterPlayerScript(PlayerScript playerScript)
+    {
+        playerScripts.Add(playerScript);
+        playerScript.Death += OnPlayerDeath;
+    }
+
+    void OnPlayerDeath()
+    {
+        lives--;
+        if(lives > 0)
+        {
+            RespawnPlayer();
+        } else
+        {
+            levelManagerScript.LoadLose();
+        }
+    }
+
+    void RespawnPlayer()
+    {
+        GameObject respawnPoint = GameObject.Find("PlayerRespawnPoint");
+
+        if(respawnPoint == null)
+        {
+            Debug.Log("No player respawn point found.");
+            return;
+        }
+
+        Vector3 respawnPosition = respawnPoint.transform.position;
+
+        Instantiate(playerPrefab, respawnPosition, Quaternion.identity);
     }
 }

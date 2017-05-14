@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ public class PlayerScript : MonoBehaviour {
     float leftBoundary;
 
 	void Start () {
+        GameObject.Find("GameController").GetComponent<GameControllerScript>().RegisterPlayerScript(this);
+
         playerHalfWidth = GetComponent<SpriteRenderer>().bounds.size.x / 2;
         rightBoundary = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, cameraToBackgroundDistance)).x - playerHalfWidth;
         leftBoundary = -rightBoundary;
@@ -37,6 +40,18 @@ public class PlayerScript : MonoBehaviour {
 
     public void Die()
     {
+        OnDeath();
         Destroy(gameObject);
+    }
+
+    public delegate void DeathAction();
+    public event DeathAction Death;
+
+    public void OnDeath()
+    {
+        if(Death != null)
+        {
+            Death();
+        }
     }
 }

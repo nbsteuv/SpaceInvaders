@@ -13,7 +13,6 @@ public class EnemyScript : MonoBehaviour {
 
 	void Start () {
         RandomizeCooldown();
-
     }
 	
 	void Update () {
