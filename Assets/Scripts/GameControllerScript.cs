@@ -90,7 +90,7 @@ public class GameControllerScript : MonoBehaviour {
         }
 
         Vector3 respawnPosition = respawnPoint.transform.position;
-
+ 
         Instantiate(playerPrefab, respawnPosition, Quaternion.identity);
     }
 }
