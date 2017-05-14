@@ -6,14 +6,15 @@ public class EnemyScript : MonoBehaviour {
 
     public GameObject laserPrefab;
     public float laserVerticalOffset;
-    public float maxCoolDown;
+    public float maxCoolDown = 10;
 
     float coolDown = 1f;
-    float timer = 10f;
+    float timer = 0f;
 
 	void Start () {
-		
-	}
+        RandomizeCooldown();
+
+    }
 	
 	void Update () {
         IncrementTimer();
@@ -49,11 +50,18 @@ public class EnemyScript : MonoBehaviour {
         {
             Fire();
             timer = 0;
+            RandomizeCooldown();
         }
     }
 
     void IncrementTimer()
     {
         timer += Time.deltaTime;
+    }
+
+    void RandomizeCooldown()
+    {
+        float randomValue = Random.Range(0f, maxCoolDown);
+        coolDown = randomValue;
     }
 }
