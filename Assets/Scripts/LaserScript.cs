@@ -19,6 +19,7 @@ public class LaserScript : MonoBehaviour {
         if(collision.collider.gameObject.tag == "Enemy")
         {
             collision.collider.gameObject.GetComponent<EnemyScript>().Die();
+            Destroy(gameObject);
         }
     }
 }
