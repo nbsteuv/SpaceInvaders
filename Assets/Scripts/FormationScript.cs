@@ -92,7 +92,7 @@ public class FormationScript : MonoBehaviour {
             float totalDistance = Mathf.Abs(startX - maxOffset);
             float fracJourney = distanceTraveled / totalDistance;
             goalX = Mathf.Lerp(startX, maxOffset, fracJourney);
-            Debug.Log("Goal passed: " + goalX);
+            //Debug.Log("Goal passed: " + goalX);
         }
     }
 

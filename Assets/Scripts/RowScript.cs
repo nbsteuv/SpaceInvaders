@@ -76,18 +76,18 @@ public class RowScript : MonoBehaviour {
         float timeDifference = Time.time - movementStartTime;
         float distanceTraveled = timeDifference * speed;
 
-        Debug.Log("Time difference: " + distanceTraveled);
-        Debug.Log("Distance traveled: " + distanceTraveled);
+        //Debug.Log("Time difference: " + distanceTraveled);
+        //Debug.Log("Distance traveled: " + distanceTraveled);
 
         Vector3 startPosition = new Vector3(startX, transform.position.y, transform.position.z);
         Vector3 goalPosition = new Vector3(goalX, transform.position.y, transform.position.z);
         float totalDistance = Vector3.Distance(startPosition, goalPosition);
 
-        Debug.Log("Total distance: " + totalDistance);
+        //Debug.Log("Total distance: " + totalDistance);
 
         float fracJourney = distanceTraveled / totalDistance;
 
-        Debug.Log("Fracjourney: " + fracJourney);
+        //Debug.Log("Fracjourney: " + fracJourney);
 
         transform.position = Vector3.Lerp(startPosition, goalPosition, fracJourney);
     }

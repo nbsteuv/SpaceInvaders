@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour {
 
+    public GameObject laserPrefab;
+    public float laserVerticalOffset;
+
     float cameraToBackgroundDistance = 10f;
     float playerHalfWidth;
     float rightBoundary;
@@ -21,5 +24,14 @@ public class PlayerScript : MonoBehaviour {
         newPositionX = Mathf.Clamp(newPositionX, leftBoundary, rightBoundary);
         transform.position = new Vector3(newPositionX, transform.position.y, transform.position.z);
 
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Fire();
+        }
+    }
+
+    void Fire()
+    {
+        Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y + laserVerticalOffset, transform.position.z), Quaternion.identity);
     }
 }
