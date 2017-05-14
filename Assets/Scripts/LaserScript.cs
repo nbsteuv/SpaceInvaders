@@ -13,4 +13,12 @@ public class LaserScript : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.gameObject.tag == "Enemy")
+        {
+            Destroy(collision.collider.gameObject);
+        }
+    }
 }
