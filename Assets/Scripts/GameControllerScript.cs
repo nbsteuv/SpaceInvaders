@@ -22,7 +22,10 @@ public class GameControllerScript : MonoBehaviour {
 
     private void Awake()
     {
-        if(instance != null)
+        playerScripts = new List<PlayerScript>();
+        formationScripts = new List<FormationScript>();
+
+        if (instance != null)
         {
             Destroy(gameObject);
         } else
@@ -33,8 +36,7 @@ public class GameControllerScript : MonoBehaviour {
     }
 
     void Start () {
-        playerScripts = new List<PlayerScript>();
-        formationScripts = new List<FormationScript>();
+        
 	}
 	
 	void Update () {
