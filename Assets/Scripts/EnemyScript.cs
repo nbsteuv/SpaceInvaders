@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour {
 
+    public float pointValue = 1;
+
     public GameObject laserPrefab;
     public float laserVerticalOffset;
     public float maxCoolDown = 10;
@@ -22,7 +24,19 @@ public class EnemyScript : MonoBehaviour {
 
     public void Die()
     {
+        OnDeath();
         Destroy(gameObject);
+    }
+
+    public delegate void DeathAction();
+    public event DeathAction Death;
+
+    void OnDeath()
+    {
+        if(Death != null)
+        {
+            Death();
+        }
     }
 
     public void Fire()
