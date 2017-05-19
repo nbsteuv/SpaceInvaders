@@ -171,7 +171,8 @@ public class GameControllerScript : MonoBehaviour {
 
     void AddPoints(int points)
     {
-        Debug.Log(points);
+        score += points;
+        scoreText.text = "Score " + score.ToString();
     }
 
 }
