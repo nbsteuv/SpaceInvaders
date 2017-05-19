@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using System;
 
 public class GameControllerScript : MonoBehaviour {
@@ -15,6 +16,9 @@ public class GameControllerScript : MonoBehaviour {
     public float respawnDelay = 1;
 
     float cameraToBackgroundDistance = 10f;
+
+    int score = 0;
+    Text scoreText;
 
     LevelManagerScript levelManagerScript;
     List<PlayerScript> playerScripts;
@@ -89,6 +93,13 @@ public class GameControllerScript : MonoBehaviour {
             {
                 Cursor.visible = true;
             }
+        }
+
+        GameObject[] scoreTexts = GameObject.FindGameObjectsWithTag("ScoreTextUI");
+        if(scoreTexts.Length > 0)
+        {
+            scoreText = scoreTexts[0].GetComponent<Text>();
+            scoreText.text = "Score " + score.ToString();
         }
     }
 
