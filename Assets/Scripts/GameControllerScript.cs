@@ -147,7 +147,7 @@ public class GameControllerScript : MonoBehaviour {
 
     void OnEnemyDeath()
     {
-
+        Debug.Log("Dead");
     }
 
 }

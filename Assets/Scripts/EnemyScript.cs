@@ -14,6 +14,12 @@ public class EnemyScript : MonoBehaviour {
     float timer = 0f;
 
 	void Start () {
+        GameObject gameController = GameObject.Find("GameController");
+        if (gameController != null)
+        {
+            GameControllerScript gameControllerScript = gameController.GetComponent<GameControllerScript>();
+            gameControllerScript.RegisterEnemyScript(this);
+        }
         RandomizeCooldown();
     }
 	
