@@ -68,6 +68,11 @@ public class GameControllerScript : MonoBehaviour {
         {
             formationScript.FormationDestroyed -= OnFormationDestroyed;
         }
+
+        foreach(EnemyScript enemyScript in enemyScripts)
+        {
+            enemyScript.Death -= OnEnemyDeath;
+        }
     }
 
     void OnSceneLoad(Scene scene, LoadSceneMode mode)
