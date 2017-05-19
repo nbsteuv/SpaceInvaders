@@ -19,11 +19,13 @@ public class GameControllerScript : MonoBehaviour {
     LevelManagerScript levelManagerScript;
     List<PlayerScript> playerScripts;
     List<FormationScript> formationScripts;
+    List<EnemyScript> enemyScripts;
 
     private void Awake()
     {
         playerScripts = new List<PlayerScript>();
         formationScripts = new List<FormationScript>();
+        enemyScripts = new List<EnemyScript>();
 
         if (instance != null)
         {
@@ -97,6 +99,12 @@ public class GameControllerScript : MonoBehaviour {
         formationScript.FormationDestroyed += OnFormationDestroyed;
     }
 
+    public void RegisterEnemyScript(EnemyScript enemyScript)
+    {
+        enemyScripts.Add(enemyScript);
+        enemyScript.Death += OnEnemyDeath;
+    }
+
     void OnPlayerDeath()
     {
         lives--;
@@ -131,4 +139,10 @@ public class GameControllerScript : MonoBehaviour {
     {
         levelManagerScript.LoadNextLevel();
     }
+
+    void OnEnemyDeath()
+    {
+
+    }
+
 }
