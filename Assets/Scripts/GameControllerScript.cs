@@ -145,9 +145,22 @@ public class GameControllerScript : MonoBehaviour {
         levelManagerScript.LoadNextLevel();
     }
 
-    void OnEnemyDeath()
+    void OnEnemyDeath(object source, EventArgs args)
     {
-        Debug.Log("Dead");
+        EnemyScript enemyScript = (EnemyScript)source;
+        int pointValue = GetPointValueFromEnemyScript(enemyScript);
+        AddPoints(pointValue);
+    }
+
+    int GetPointValueFromEnemyScript(EnemyScript enemyScript)
+    {
+        int pointValue = enemyScript.pointValue;
+        return pointValue;
+    }
+
+    void AddPoints(int points)
+    {
+        Debug.Log(points);
     }
 
 }

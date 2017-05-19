@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyScript : MonoBehaviour {
 
-    public float pointValue = 1;
+    public int pointValue = 1;
 
     public GameObject laserPrefab;
     public float laserVerticalOffset;
@@ -34,14 +35,14 @@ public class EnemyScript : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    public delegate void DeathAction();
+    public delegate void DeathAction(object source, EventArgs args);
     public event DeathAction Death;
 
     void OnDeath()
     {
         if(Death != null)
         {
-            Death();
+            Death(this, EventArgs.Empty);
         }
     }
 
@@ -80,7 +81,7 @@ public class EnemyScript : MonoBehaviour {
 
     void RandomizeCooldown()
     {
-        float randomValue = Random.Range(0f, maxCoolDown);
+        float randomValue = UnityEngine.Random.Range(0f, maxCoolDown);
         coolDown = randomValue;
     }
 }
