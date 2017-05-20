@@ -132,6 +132,7 @@ public class GameControllerScript : MonoBehaviour {
     void OnPlayerDeath()
     {
         lives--;
+        UpdateLivesDisplay();
         if(lives > 0)
         {
             Invoke("RespawnPlayer", respawnDelay);
