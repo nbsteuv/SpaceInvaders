@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour {
 
     public int pointValue = 1;
+    public AudioClip fireSound;
 
     public GameObject laserPrefab;
     public float laserVerticalOffset;
@@ -49,6 +50,7 @@ public class EnemyScript : MonoBehaviour {
     public void Fire()
     {
         Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y + laserVerticalOffset, transform.position.z), Quaternion.identity);
+        AudioSource.PlayClipAtPoint(fireSound, transform.position);
     }
 
     bool CheckCooldown()
