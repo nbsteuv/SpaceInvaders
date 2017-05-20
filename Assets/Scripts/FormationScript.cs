@@ -13,8 +13,10 @@ public class FormationScript : MonoBehaviour {
     float startX;
     float goalX;
     float startTime;
+
     float startY;
     float goalY;
+    float startTimeY;
     bool movingY = false;
 
 	void Start () {
@@ -41,22 +43,27 @@ public class FormationScript : MonoBehaviour {
 	void Update () {
         if (!movingY)
         {
-            if (goalX == maxOffset)
-            {
-                //IncrementYGoal sets movingY to true;
-                IncrementYGoal();
-            }
-
-            MoveXGoal();
-
             if (CheckRowsReadytoMove())
             {
-                SetNewRowGoals(goalX);
+                if (goalX == maxOffset)
+                {
+                    //IncrementYGoal sets movingY to true;
+                    IncrementYGoal();
+                } else
+                {
+                    MoveXGoal();
+                    SetNewRowGoals(goalX);
+                }
             }
         } else
         {
             //MoveToY sets movingY to false when goal is reached
-            MoveToY();
+            if (CheckRowsReadytoMove())
+            {
+                MoveToY();
+            }
+
+                
         }
 
         TestFormationDestroyed();
@@ -89,20 +96,14 @@ public class FormationScript : MonoBehaviour {
 
     void MoveXGoal()
     {
-        if(goalX == maxOffset)
-        {
-            SwitchDirections();
-            
-        } else
-        {
-            float timeDifference = Time.time - startTime;
-            float distanceTraveled = speedX * timeDifference;
+        float timeDifference = Time.time - startTime;
+        float distanceTraveled = speedX * timeDifference;
 
-            float totalDistance = Mathf.Abs(startX - maxOffset);
-            float fracJourney = distanceTraveled / totalDistance;
-            goalX = Mathf.Lerp(startX, maxOffset, fracJourney);
-            //Debug.Log("Goal passed: " + goalX);
-        }
+        float totalDistance = Mathf.Abs(startX - maxOffset);
+        float fracJourney = distanceTraveled / totalDistance;
+
+        goalX = Mathf.Lerp(startX, maxOffset, fracJourney);
+        //Debug.Log("Goal passed: " + goalX);
     }
 
     void SwitchDirections()
@@ -110,19 +111,19 @@ public class FormationScript : MonoBehaviour {
         maxOffset = -maxOffset;
         startX = goalX;
         startTime = Time.time;
-    }
+}
 
     void IncrementYGoal()
     {
         goalY -= yIncrement;
-        startTime = Time.time;
+        startTimeY = Time.time;
         startY = transform.position.y;
         movingY = true;
     }
 
     void MoveToY()
     {
-        float timeDifference = Time.time - startTime;
+        float timeDifference = Time.time - startTimeY;
         float distanceTraveled = speedY * timeDifference;
 
         float totalDistance = Mathf.Abs(startY - goalY);
@@ -134,6 +135,7 @@ public class FormationScript : MonoBehaviour {
         if(transform.position.y == goalY)
         {
             movingY = false;
+            SwitchDirections();
         }
     }
 
