@@ -5,7 +5,6 @@ using UnityEngine;
 public class ExplodeScript : MonoBehaviour {
 
     public GameObject explosionPrefab;
-    public float scaleMultiplier;
 
     public void Explode()
     {

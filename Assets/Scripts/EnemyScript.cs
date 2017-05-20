@@ -32,6 +32,12 @@ public class EnemyScript : MonoBehaviour {
 
     public void Die()
     {
+        ExplodeScript explodeScript = GetComponent<ExplodeScript>();
+        if(explodeScript != null)
+        {
+            explodeScript.Explode();
+        }
+
         OnDeath();
         Destroy(gameObject);
     }
