@@ -11,8 +11,16 @@ public class FinalScoreScript : MonoBehaviour {
 
     int scoreValue;
     float scoreCurrent = 0;
+    int displayedScore;
 
-	void Update () {
+    AudioSource incrementSound;
+
+    private void Awake()
+    {
+        incrementSound = GetComponent<AudioSource>();
+    }
+
+    void Update () {
         AccelerateMove();
         MoveScore();
 	}
@@ -28,7 +36,13 @@ public class FinalScoreScript : MonoBehaviour {
         {
             scoreCurrent = scoreCurrent + incrementSpeed * Time.deltaTime;
         }
-        scoreDisplay.text = Mathf.RoundToInt(scoreCurrent).ToString();
+        int newDisplayScore = Mathf.RoundToInt(scoreCurrent);
+        if (newDisplayScore != displayedScore)
+        {
+            displayedScore = newDisplayScore;
+            scoreDisplay.text = newDisplayScore.ToString();
+            incrementSound.Play();
+        }
     }
 
     void AccelerateMove()
