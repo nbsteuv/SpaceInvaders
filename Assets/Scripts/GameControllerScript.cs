@@ -109,6 +109,12 @@ public class GameControllerScript : MonoBehaviour {
             livesText = livesTexts[0].GetComponent<Text>();
             UpdateLivesDisplay();
         }
+
+        FinalScoreScript finalScoreScript = GameObject.FindObjectOfType<FinalScoreScript>();
+        if(finalScoreScript != null)
+        {
+            finalScoreScript.SetScore(score);
+        }
     }
 
     public void RegisterPlayerScript(PlayerScript playerScript)
