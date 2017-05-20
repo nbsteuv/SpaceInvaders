@@ -27,5 +27,11 @@ public class LaserScript : MonoBehaviour {
             collision.collider.gameObject.GetComponent<PlayerScript>().Die();
             Destroy(gameObject);
         }
+
+        if(collision.collider.gameObject.tag == "Enemy Fire")
+        {
+            Destroy(collision.collider.gameObject);
+            Destroy(gameObject);
+        }
     }
 }
