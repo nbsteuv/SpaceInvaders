@@ -116,6 +116,11 @@ public class GameControllerScript : MonoBehaviour {
             Debug.Log("Passed: " + score);
             finalScoreScript.SetScore(score);
         }
+
+        if(scene.name == "Lose")
+        {
+            score = 0;
+        }
     }
 
     public void RegisterPlayerScript(PlayerScript playerScript)
