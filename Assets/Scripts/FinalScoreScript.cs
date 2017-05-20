@@ -7,11 +7,13 @@ public class FinalScoreScript : MonoBehaviour {
 
     public Text scoreDisplay;
     public float incrementSpeed;
+    public float incrementAcceleration;
 
     int scoreValue;
     float scoreCurrent = 0;
 
 	void Update () {
+        AccelerateMove();
         MoveScore();
 	}
 
@@ -31,5 +33,10 @@ public class FinalScoreScript : MonoBehaviour {
             scoreCurrent = scoreCurrent + incrementSpeed * Time.deltaTime;
         }
         scoreDisplay.text = Mathf.RoundToInt(scoreCurrent).ToString();
+    }
+
+    void AccelerateMove()
+    {
+        incrementSpeed = incrementSpeed + incrementAcceleration * Time.deltaTime;
     }
 }
