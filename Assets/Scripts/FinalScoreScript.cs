@@ -28,6 +28,7 @@ public class FinalScoreScript : MonoBehaviour {
     public void SetScore(int score)
     {
         scoreValue = score;
+        scoreDisplay.text = scoreCurrent.ToString();
     }
 
     void MoveScore()
