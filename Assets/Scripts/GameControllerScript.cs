@@ -19,6 +19,7 @@ public class GameControllerScript : MonoBehaviour {
 
     int score = 0;
     Text scoreText;
+    Text livesText;
 
     LevelManagerScript levelManagerScript;
     List<PlayerScript> playerScripts;
@@ -101,6 +102,13 @@ public class GameControllerScript : MonoBehaviour {
             scoreText = scoreTexts[0].GetComponent<Text>();
             scoreText.text = "Score " + score.ToString();
         }
+
+        GameObject[] livesTexts = GameObject.FindGameObjectsWithTag("LivesTextUI");
+        if(livesTexts.Length > 0)
+        {
+            livesText = livesTexts[0].GetComponent<Text>();
+            UpdateLivesDisplay();
+        }
     }
 
     public void RegisterPlayerScript(PlayerScript playerScript)
@@ -173,6 +181,12 @@ public class GameControllerScript : MonoBehaviour {
     {
         score += points;
         scoreText.text = "Score " + score.ToString();
+    }
+
+    void UpdateLivesDisplay()
+    {
+        //Will eventually be replaced with images
+        livesText.text = lives.ToString() + " Lives";
     }
 
 }
