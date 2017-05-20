@@ -66,4 +66,12 @@ public class PlayerScript : MonoBehaviour {
             Death();
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.gameObject.tag == "Enemy")
+        {
+            Die();
+        }
+    }
 }
