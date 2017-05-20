@@ -113,8 +113,10 @@ public class GameControllerScript : MonoBehaviour {
         FinalScoreScript finalScoreScript = GameObject.FindObjectOfType<FinalScoreScript>();
         if(finalScoreScript != null)
         {
-            Debug.Log("Passed: " + score);
             finalScoreScript.SetScore(score);
+
+            //Finding final score script also means we need a life reset
+            lives = 3;
         }
 
         if(scene.name == "Lose")
