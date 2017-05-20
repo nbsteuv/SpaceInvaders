@@ -22,6 +22,8 @@ public class GameControllerScript : MonoBehaviour {
     Text scoreText;
     Text livesText;
 
+    bool debugMode = false;
+
     LevelManagerScript levelManagerScript;
     List<PlayerScript> playerScripts;
     List<FormationScript> formationScripts;
@@ -58,6 +60,11 @@ public class GameControllerScript : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             levelManagerScript.EndGame();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            debugMode = !debugMode;
         }
 
 	}
@@ -152,7 +159,10 @@ public class GameControllerScript : MonoBehaviour {
 
     void OnPlayerDeath()
     {
-        livesLeft--;
+        if (!debugMode)
+        {
+            livesLeft--;
+        }
         UpdateLivesDisplay();
         if(livesLeft > 0)
         {
