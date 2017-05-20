@@ -17,7 +17,7 @@ public class GameControllerScript : MonoBehaviour {
 
     float cameraToBackgroundDistance = 10f;
 
-    int score = 0;
+    int score = 1000;
     Text scoreText;
     Text livesText;
 
@@ -113,6 +113,7 @@ public class GameControllerScript : MonoBehaviour {
         FinalScoreScript finalScoreScript = GameObject.FindObjectOfType<FinalScoreScript>();
         if(finalScoreScript != null)
         {
+            Debug.Log("Passed: " + score);
             finalScoreScript.SetScore(score);
         }
     }

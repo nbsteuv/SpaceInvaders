@@ -6,9 +6,10 @@ using UnityEngine.UI;
 public class FinalScoreScript : MonoBehaviour {
 
     public Text scoreDisplay;
+    public float incrementSpeed;
 
     int scoreValue;
-    int scoreCurrent;
+    float scoreCurrent = 0;
 
 	void Update () {
         MoveScore();
@@ -21,7 +22,14 @@ public class FinalScoreScript : MonoBehaviour {
 
     void MoveScore()
     {
-        scoreCurrent = scoreValue;
-        scoreDisplay.text = scoreCurrent.ToString();
+        Debug.Log("moving score");
+        Debug.Log(scoreCurrent);
+        Debug.Log(scoreValue);
+        if (scoreCurrent < scoreValue)
+        {
+            Debug.Log("score is less");
+            scoreCurrent = scoreCurrent + incrementSpeed * Time.deltaTime;
+        }
+        scoreDisplay.text = Mathf.RoundToInt(scoreCurrent).ToString();
     }
 }
