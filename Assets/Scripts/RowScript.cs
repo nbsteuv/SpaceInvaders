@@ -5,12 +5,13 @@ using UnityEngine;
 public class RowScript : MonoBehaviour {
 
     public GameObject enemyPrefab;
+    public float delay;
 
     float speed;
     float movementStartTime;
     float startX;
     float goalX;
-    bool moving = false;
+    bool movementAllowed = false;
 
 	void Start () {
         InstantiateEnemies();
@@ -22,9 +23,6 @@ public class RowScript : MonoBehaviour {
         if (CheckMoveable())
         {
             Shift();
-        } else
-        {
-            moving = false;
         }
 	}
 
@@ -47,7 +45,13 @@ public class RowScript : MonoBehaviour {
         //Debug.Log("Setting position: " + newXPosition);
         startX = transform.position.x;
         goalX = newXPosition;
+        Invoke("startMovement", delay);
+    }
+
+    void startMovement()
+    {
         movementStartTime = Time.time;
+        movementAllowed = true;
     }
 
     public float GetGoalPosition()
@@ -64,6 +68,10 @@ public class RowScript : MonoBehaviour {
     {
         //Debug.Log(goalX + " vs. " + startX);
         if(goalX == startX)
+        {
+            return false;
+        }
+        if (!movementAllowed)
         {
             return false;
         }
@@ -90,6 +98,11 @@ public class RowScript : MonoBehaviour {
         //Debug.Log("Fracjourney: " + fracJourney);
 
         transform.position = Vector3.Lerp(startPosition, goalPosition, fracJourney);
+
+        if(transform.position.x == goalX)
+        {
+            movementAllowed = false;
+        }
     }
     
 }
