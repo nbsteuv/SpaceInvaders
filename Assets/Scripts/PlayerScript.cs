@@ -8,7 +8,6 @@ public class PlayerScript : MonoBehaviour {
     public GameObject laserPrefab;
     public float laserVerticalOffset;
     public AudioClip fireSound;
-    public GameObject explosionPrefab;
 
     float cameraToBackgroundDistance = 10f;
     float playerHalfWidth;
@@ -48,14 +47,13 @@ public class PlayerScript : MonoBehaviour {
 
     public void Die()
     {
-        Explode();
+        ExplodeScript explodeScript = GetComponent<ExplodeScript>();
+        if(explodeScript != null)
+        {
+            explodeScript.Explode();
+        }
         OnDeath();
         Destroy(gameObject);
-    }
-
-    void Explode()
-    {
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
     }
 
     public delegate void DeathAction();
