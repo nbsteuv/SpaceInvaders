@@ -154,7 +154,7 @@ public class GameControllerScript : MonoBehaviour {
             Invoke("RespawnPlayer", respawnDelay);
         } else
         {
-            levelManagerScript.LoadLose();
+            Invoke("Lose", respawnDelay);
         }
     }
 
@@ -206,4 +206,8 @@ public class GameControllerScript : MonoBehaviour {
         livesText.text = livesLeft.ToString() + " Lives";
     }
 
+    void Lose()
+    {
+        levelManagerScript.LoadLose();
+    }
 }
