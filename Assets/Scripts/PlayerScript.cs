@@ -7,6 +7,7 @@ public class PlayerScript : MonoBehaviour {
 
     public GameObject laserPrefab;
     public float laserVerticalOffset;
+    public AudioClip fireSound;
 
     float cameraToBackgroundDistance = 10f;
     float playerHalfWidth;
@@ -41,6 +42,7 @@ public class PlayerScript : MonoBehaviour {
     void Fire()
     {
         Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y + laserVerticalOffset, transform.position.z), Quaternion.identity);
+        AudioSource.PlayClipAtPoint(fireSound, transform.position);
     }
 
     public void Die()
