@@ -18,6 +18,7 @@ public class GameControllerScript : MonoBehaviour {
     float cameraToBackgroundDistance = 10f;
 
     int score = 0;
+    int livesLeft;
     Text scoreText;
     Text livesText;
 
@@ -28,6 +29,7 @@ public class GameControllerScript : MonoBehaviour {
 
     private void Awake()
     {
+        livesLeft = lives;
         playerScripts = new List<PlayerScript>();
         formationScripts = new List<FormationScript>();
         enemyScripts = new List<EnemyScript>();
@@ -116,7 +118,7 @@ public class GameControllerScript : MonoBehaviour {
             finalScoreScript.SetScore(score);
 
             //Finding final score script also means we need a life reset
-            lives = 3;
+            livesLeft = lives;
         }
 
         if(scene.name == "Lose")
@@ -145,9 +147,9 @@ public class GameControllerScript : MonoBehaviour {
 
     void OnPlayerDeath()
     {
-        lives--;
+        livesLeft--;
         UpdateLivesDisplay();
-        if(lives > 0)
+        if(livesLeft > 0)
         {
             Invoke("RespawnPlayer", respawnDelay);
         } else
@@ -201,7 +203,7 @@ public class GameControllerScript : MonoBehaviour {
     void UpdateLivesDisplay()
     {
         //Will eventually be replaced with images
-        livesText.text = lives.ToString() + " Lives";
+        livesText.text = livesLeft.ToString() + " Lives";
     }
 
 }
