@@ -24,12 +24,8 @@ public class FinalScoreScript : MonoBehaviour {
 
     void MoveScore()
     {
-        Debug.Log("moving score");
-        Debug.Log(scoreCurrent);
-        Debug.Log(scoreValue);
         if (scoreCurrent < scoreValue)
         {
-            Debug.Log("score is less");
             scoreCurrent = scoreCurrent + incrementSpeed * Time.deltaTime;
         }
         scoreDisplay.text = Mathf.RoundToInt(scoreCurrent).ToString();
