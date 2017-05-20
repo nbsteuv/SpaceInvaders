@@ -55,6 +55,11 @@ public class GameControllerScript : MonoBehaviour {
             levelManagerScript.LoadLose();
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            levelManagerScript.EndGame();
+        }
+
 	}
 
     public void OnEnable()

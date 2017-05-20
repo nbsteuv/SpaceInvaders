@@ -29,4 +29,9 @@ public class LevelManagerScript : MonoBehaviour {
     {
         SceneManager.LoadScene("Lose");
     }
+
+    public void EndGame()
+    {
+        Application.Quit();
+    }
 }
