@@ -17,7 +17,7 @@ public class GameControllerScript : MonoBehaviour {
 
     float cameraToBackgroundDistance = 10f;
 
-    int score = 1000;
+    int score = 0;
     Text scoreText;
     Text livesText;
 
